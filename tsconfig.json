@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    // Spécifie la version JavaScript cible pour la compilation
+    "target": "ES6",
+    
+    // Définit le système de modules utilisé (CommonJS pour Node.js)
+    "module": "CommonJS",
+    
+    // Dossier de sortie pour les fichiers JavaScript compilés
+    "outDir": "./dist",
+    
+    // Dossier racine contenant les fichiers sources TypeScript
+    "rootDir": "./src",
+    
+    // Active l'interopérabilité entre les modules CommonJS et ES6
+    "esModuleInterop": true,
+    
+    // Permet d'importer des fichiers JSON directement
+    "resolveJsonModule": true,
+    
+    // Active tous les contrôles de type stricts pour une meilleure sécurité
+    "strict": true,
+    
+    // Ignore la vérification des fichiers de déclaration (.d.ts) pour améliorer les performances
+    "skipLibCheck": true,
+    
+    // Force la cohérence de la casse dans les noms de fichiers importés
+    "forceConsistentCasingInFileNames": true,
+    
+    // Stratégie de résolution des modules (style Node.js)
+    "moduleResolution": "node"
+  },
+  
+  // Fichiers à inclure dans la compilation
+  "include": ["src/**/*"],
+  
+  // Fichiers à exclure de la compilation
+  "exclude": ["node_modules", "dist"]
+}
