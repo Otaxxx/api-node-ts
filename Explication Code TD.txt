@@ -1,0 +1,72 @@
+src/index.ts
+
+import express, { Request, Response } from 'express' // framework serveur
+import * as dotenv from 'dotenv' // variables d'environnement
+import userRoutes from './routes/user.routes' // routes utilisateurs
+
+dotenv.config() // charge le fichier .env
+const app = express()
+const PORT = process.env.PORT || 3000
+
+app.use(express.json()) // permet de lire le JSON
+
+// route de test
+app.get('/', (req: Request, res: Response) => {
+  res.send('🚀 API Node.js avec TypeScript fonctionne !')
+})
+
+// routes utilisateurs
+app.use('/users', userRoutes)
+
+// démarre le serveur
+app.listen(PORT, () => {
+  console.log(`✅ Serveur démarré sur http://localhost:${PORT}`)
+})
+
+
+
+src/routes/user.routes.ts
+
+import { Router } from 'express'
+import { getUsers, addUser } from '../controllers/user.controller'
+
+const router = Router()
+
+router.get('/', getUsers) // liste les utilisateurs
+router.post('/', addUser) // ajoute un utilisateur
+
+export default router // exporte le routeur
+
+
+src/controllers/user.controller.ts
+
+import { Request, Response } from 'express'
+
+// renvoie un message simple
+export const getUsers = (req: Request, res: Response) => {
+  res.json({ message: 'Liste des utilisateurs' })
+}
+
+// ajoute un utilisateur et confirme
+export const addUser = (req: Request, res: Response) => {
+  const { name, email } = req.body
+  res.json({ message: `Utilisateur ${name} ajouté avec succès !`, email })
+}
+
+
+nodemon.json
+
+{
+  "watch": ["src"], // surveille les fichiers du dossier src
+  "ext": "ts", // surveille les fichiers .ts
+  "exec": "ts-node -r dotenv/config src/index.ts" // exécute le serveur avec ts-node
+}
+
+
+package.json (scripts)
+
+"scripts": {
+  "build": "tsc", // compile le code TypeScript
+  "start": "node dist/index.js", // lance la version compilée
+  "dev": "nodemon src/index.ts" // mode développement avec redémarrage auto
+}
